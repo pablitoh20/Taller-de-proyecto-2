@@ -3,30 +3,39 @@ Se subiran los archivos de la materia taller de proyecto 2
 
 
 # Instrucciones de uso Postgres
-	Abir terminal y colocar los siguientes comandos:
+
+PASO 1
+Abir terminal y colocar los siguientes comandos:
+
 		sudo apt-get update
 		sudo apt-get install postgresql postgresql-contrib
 		pip install psycopg2 // si falla, buscar como instalar psycopg	
+
 Luego tienen que configurarlo, asi que se colocar
 
 		sudo -u postgres psql postgres
 
-Eso va abrir la consola de postgres con el usurio "psotgres" (no quieran cambiarlo por ahora que les va a traer problemas).
-Finalmente, tienen qu seguir la siguiente secuencia:
+Eso va abrir la consola de postgres con el usurio "postgres" (no quieran cambiarlo por ahora que les va a traer problemas).
+
+Finalmente, tienen que seguir la siguiente secuencia:
 		
-ATENCION: NO DEJAR VACIO EL CAMPO DE CONTRASEÑA
+ATENCIÓN: NO DEJAR VACIO EL CAMPO DE CONTRASEÑA
 
 		postgres=# \password postgres 
 		Enter new password: 
 		Enter it again: 
 		postgres=# \q
 
-paso 2: Instalamos la interfaz apra manejar Postgres:
+
+
+PASO 2
+Instalamos la interfaz apra manejar Postgres:
 
 		sudo apt-get install pgadmin3
 
 Al abrirla la interfaz no vana  tener nada conectado, asi que hagan click en el enchufe o boton conectar (arriba a la izquierda)
 Completar de la siguiente manera:
+		
 		name: tallerDeProyecto2
 		Host:localhost
 		Port:5432
@@ -35,7 +44,7 @@ Completar de la siguiente manera:
 		UserName : practica1
 		passward : (la que gusten, pero la que ponga, fijense de entrar al .py y ponerle esta misma).
 		
-Apreatr aceptar y listo, ya tienen la base de datos creada. Para poder seguir utilizando todo, sigan este tutorial:
+Presionar aceptar y listo, ya tienen la base de datos creada. Para poder seguir utilizando todo, sigan este tutorial:
 
 		http://www.postgresqltutorial.com/postgresql-python/	
 
