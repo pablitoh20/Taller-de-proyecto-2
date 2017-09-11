@@ -41,7 +41,7 @@ Completar de la siguiente manera:
 		Port:5432
 		Service:(vacio)
 		MainenanceDB : postgres
-		UserName : practica1
+		UserName : postgres
 		passward : (la que gusten, pero la que ponga, fijense de entrar al .py y ponerle esta misma).
 		
 Presionar aceptar y listo, ya tienen la base de datos creada. Para poder seguir utilizando todo, sigan este tutorial:
