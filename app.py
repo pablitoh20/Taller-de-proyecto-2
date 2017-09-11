@@ -5,6 +5,7 @@ import psycopg2
 import pprint
 import sys
 import E_mete
+import baseDeDatos
 import threading
 from time import sleep
 from flask import Flask
@@ -19,10 +20,10 @@ app = Flask(__name__)
 
 #definimos cual es el inicio de la pagina
 def index():
-    return render_template('form.html')
+    return render_template('estacionInformacion.html')
 
 # Define la ruta y metodo con el que se debe llegar a este endpoint
-@app.route('/form', methods = ['POST'])
+@app.route('/estacionInformacion', methods = ['POST'])
 
 #Definimos el comportamiento del formulario
 def action_form():
@@ -34,7 +35,7 @@ def action_form():
     return render_template('respuesta.html', nombre=nombre, passw=passw)
 
 #Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
-def connect(vendor_name):
+def connect():
     conn = None
     vendor_id = None
     try:
@@ -54,6 +55,10 @@ def connect(vendor_name):
             print('Database conexion cerrada.')
 
 if __name__ == '__main__':
+    #Creamos la tabla de la base de datos
+    #baseDeDatos.creacionTabla()
+    #baseDeDatos.insertarDatos([(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,)])
+    #Cargamos dicha tabla con valores en 0
     estMete = threading.Thread(target=E_mete.TomarValores)
     #info = threading.Thread(target)
     #connect()
