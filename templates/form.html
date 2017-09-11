@@ -1,15 +1,47 @@
 <html>
     <head>
-        <title>Formulario</title>
+        <title>Taller de Proyecto 2</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- JQuery -->
+        <script src="{{url_for('static', filename='jquery/jquery-3.2.1.min.js')}}"></script>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}" />
+        <!-- Bootstrap JS -->
+        <script src="{{url_for('static', filename='bootstrap/js/popper.min.js')}}"></script>
+        <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
+
     </head>
+
     <body>
-        <h1>Mi primer formulario</h1>
-        <form action="/form" method="GET">
-            <label>Ingrese su nombre</label>
-            <br>
-            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre"/>
-            <br>
-            <button type="submit">Submit</button>
+
+        <h1>Prueba Formulario 1</h1>
+
+        <form action="/form" method="POST">
+            <div class="control-group">
+               <h4>Rellene sus datos</h4>
+              <!--Ingreso de informacion usuario -->
+               <div class="control-group">
+                   <div class="controls">
+                       <input type="text" name="usuario" placeholder="Usuario">
+                   </div>
+               </div>
+
+                <!--Ingreso del password-->
+               <div class="controls">
+                   <input type="password" name="passw" placeholder="Contrase&ntilde;a" />
+                   <label class="checkbox">
+                       <input type="checkbox" name="recordar" value="recordar">Recordarme
+                   </label>
+               </div>
+
+             </div>
+
+           <!--Subministrar la informacion -->
+           <input type="submit" class="btn btn-primary" value="Enviar"/>
+
         </form>
+
     </body>
+
 </html>

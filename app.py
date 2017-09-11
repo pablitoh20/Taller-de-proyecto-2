@@ -9,9 +9,27 @@ from flask import request
 
 app = Flask(__name__)
 
-# app.route define la ruta donde se debe acceder
 
+
+# app.route define la ruta donde se debe acceder
 @app.route('/')
+
+
+#definimos cual es el fomrulario de inicio de la pagina
+def index():
+    return render_template('form.html')
+# Define la ruta y metodo con el que se debe llegar a este endpoint
+@app.route('/form', methods = ['POST'])
+
+#Definimos el comportamiento del formulario
+def action_form():
+
+    if request.method == 'POST':
+        data = request.form
+        nombre = data["usuario"]
+        passw= data["passw"]
+    return render_template('respuesta.html', nombre=nombre, passw=passw)
+# Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
 def connect():
     conn = None
     try:
@@ -30,6 +48,6 @@ def connect():
             conn.close()
             print('Database connection closed.')
 
-
 if __name__ == '__main__':
     connect()
+    app.run(host='localhost', port=80)
