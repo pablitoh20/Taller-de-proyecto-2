@@ -12,11 +12,13 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+global periodo
 
 app = Flask(__name__)
 
 # app.route define la ruta donde se debe acceder
 @app.route('/')
+
 
 #definimos cual es el inicio de la pagina
 def index():
@@ -29,10 +31,22 @@ def index():
 def action_form():
     if request.method == 'POST':
         data = request.form
-        nombre = data["usuario"]
-        passw= data["passw"]
+        if data["periodo"] == "1":
+            periodo=1
+        elif data["periodo"] == "2":
+            periodo=2
+        elif data["periodo"] == "5":
+            periodo=5
+        elif data["periodo"] == "10":
+            periodo=10
+        elif data["periodo"] == "30":
+            periodo=30
+        elif data["periodo"] == "60":
+            periodo=60
+        else:
+            periodo=120 #es para completar, pero puede ir 0
         #Hay que modificar el nombre del HTML en caso de cambiarlo
-    return render_template('respuesta.html', nombre=nombre, passw=passw)
+    return render_template('estacionInformacion.html')
 
 #Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
 def connect():
@@ -54,15 +68,17 @@ def connect():
             conn.close()
             print('Database conexion cerrada.')
 
+
 if __name__ == '__main__':
     #Creamos la tabla de la base de datos
     #baseDeDatos.creacionTabla()
     #baseDeDatos.insertarDatos([(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,)])
     #Cargamos dicha tabla con valores en 0
-    estMete = threading.Thread(target=E_mete.TomarValores)
+    #estMete = threading.Thread(target=E_mete.TomarValores)
     #info = threading.Thread(target)
     #connect()
-    estMete.start()
-    estMete.join()
-    print("Se termino el hilo")
+    #estMete.start()
+    #estMete.join()
+    #print("Se termino el hilo")
+    periodo=10
     app.run(host='localhost', port=80)
