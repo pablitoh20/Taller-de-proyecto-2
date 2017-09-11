@@ -30,14 +30,26 @@ def action_form():
         passw= data["passw"]
     return render_template('respuesta.html', nombre=nombre, passw=passw)
 # Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
-def connect():
+def connect(vendor_name):
+
     conn = None
+    vendor_id = None
     try:
         print('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect("host='localhost' dbname='practica1' user= 'postgres' password='castelli'")
         # create a cursor
         cur = conn.cursor()
-        # close communication with the PostgreSQL database server
+        cur.execute("SELECT vendor_name FROM vendors ORDER BY vendor_name")
+        print("The number of parts: ", cur.rowcount)
+        row = cur.fetchone()[0]
+
+        while row is not None:
+
+            print(row)
+            if row == "Pepeeeeee":
+                print("el contenido es Pepeeeeee")
+            row = cur.fetchone()[0]
+        # get the generated id back
         cur.close()
         # commit the changes
         conn.commit()
@@ -49,5 +61,5 @@ def connect():
             print('Database connection closed.')
 
 if __name__ == '__main__':
-    connect()
+    connect("Pepeeeeee")
     app.run(host='localhost', port=80)
