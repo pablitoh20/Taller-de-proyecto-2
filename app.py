@@ -1,7 +1,12 @@
 # Lugar para poder los imports de python
+# Importamos para tener varios hilos corriendo al mismo tiempo
+#Importamos la funcion sleep para hacer dormir (va a marcar la frecuencia de muestreo en SEGUNDOS)
 import psycopg2
 import pprint
 import sys
+import E_mete
+import threading
+from time import sleep
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -9,46 +14,34 @@ from flask import request
 
 app = Flask(__name__)
 
-
-
 # app.route define la ruta donde se debe acceder
 @app.route('/')
 
-
-#definimos cual es el fomrulario de inicio de la pagina
+#definimos cual es el inicio de la pagina
 def index():
     return render_template('form.html')
+
 # Define la ruta y metodo con el que se debe llegar a este endpoint
 @app.route('/form', methods = ['POST'])
 
 #Definimos el comportamiento del formulario
 def action_form():
-
     if request.method == 'POST':
         data = request.form
         nombre = data["usuario"]
         passw= data["passw"]
+        #Hay que modificar el nombre del HTML en caso de cambiarlo
     return render_template('respuesta.html', nombre=nombre, passw=passw)
-# Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
-def connect(vendor_name):
 
+#Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
+def connect(vendor_name):
     conn = None
     vendor_id = None
     try:
-        print('Connecting to the PostgreSQL database...')
+        print('Conectando a PostgreSQL database...')
         conn = psycopg2.connect("host='localhost' dbname='practica1' user= 'postgres' password='castelli'")
         # create a cursor
         cur = conn.cursor()
-        cur.execute("SELECT vendor_name FROM vendors ORDER BY vendor_name")
-        print("The number of parts: ", cur.rowcount)
-        row = cur.fetchone()[0]
-
-        while row is not None:
-
-            print(row)
-            if row == "Pepeeeeee":
-                print("el contenido es Pepeeeeee")
-            row = cur.fetchone()[0]
         # get the generated id back
         cur.close()
         # commit the changes
@@ -58,8 +51,13 @@ def connect(vendor_name):
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            print('Database conexion cerrada.')
 
 if __name__ == '__main__':
-    connect("Pepeeeeee")
+    estMete = threading.Thread(target=E_mete.TomarValores)
+    #info = threading.Thread(target)
+    #connect()
+    estMete.start()
+    estMete.join()
+    print("Se termino el hilo")
     app.run(host='localhost', port=80)
