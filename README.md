@@ -44,7 +44,9 @@ Completar de la siguiente manera:
 		UserName : postgres
 		passward : (la que gusten, pero la que ponga, fijense de entrar al .py y ponerle esta misma).
 		
-Presionar aceptar y listo, ya tienen la base de datos creada. Para poder seguir utilizando todo, sigan este tutorial:
+Presionar aceptar y listo, ya tienen el servidor creado, ahora entren hasta q les aparezca "Databases" y hagan click derecho y crear una base d datos nueva con el nombre practica1.
+
+ Para poder seguir utilizando todo, sigan este tutorial:
 
 		http://www.postgresqltutorial.com/postgresql-python/	
 
