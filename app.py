@@ -22,10 +22,16 @@ app = Flask(__name__)
 
 #definimos cual es el inicio de la pagina
 def index():
-    estMete = threading.Thread(target=E_mete.termometro)
-    estMete.start()
-    estMete.join()
-    return render_template('estacionInformacion.html',termo=E_mete.variableTer())
+    hilo_temperatura = threading.Thread(target=E_mete.termometro)
+    hilo_temperatura.start()
+    hilo_barometro = threading.Thread(target=E_mete.barometro)
+    hilo_barometro.start()
+    hilo_veleta = threading.Thread(target=E_mete.veleta)
+    hilo_veleta.start()
+    hilo_pluvimetro =threading.Thread(target=E_mete.pluvimetro)
+    hilo_pluvimetro.start()
+    #actualizamos los id de las cosas para la base d datos
+    return render_template('estacionInformacion.html',termo=E_mete.variableTer(),termo_promedio=4,termo_ultimaMuestra=4)
 
 # Define la ruta y metodo con el que se debe llegar a este endpoint
 @app.route('/estacionInformacion', methods = ['POST'])
