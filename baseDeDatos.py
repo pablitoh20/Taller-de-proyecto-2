@@ -27,12 +27,12 @@ def creacionTabla():
         """
         CREATE TABLE variables (
             variable_id SERIAL PRIMARY KEY,
-            var_ter VARCHAR(5) NOT NULL,
-            var_baro VARCHAR(5) NOT NULL,
-            var_aneno VARCHAR(5) NOT NULL,
-            var_vel VARCHAR(5) NOT NULL,
-            var_pluvi VARCHAR(5) NOT NULL,
-            var_heli VARCHAR(5) NOT NULL
+            var_ter INT,
+            var_baro INT,
+            var_aneno INT,
+            var_vel INT,
+            var_pluvi INT,
+            var_heli INT
         );
         """
         )
@@ -57,7 +57,7 @@ def creacionTabla():
 
 #Poner los primeros 10 valores a la tabla para que funcione con el inciso de la practica.
 def insertarDatos(var_list):
-    sql = "INSERT INTO variables(var_ter) VALUES(%s)"
+    sql = "INSERT INTO variables(var_baro) VALUES(%s)"
     conn = None
     try:
         print('Conectando a PostgreSQL database para la carga de la tabla')
@@ -74,3 +74,24 @@ def insertarDatos(var_list):
     finally:
         if conn is not None:
             conn.close()
+
+def actualizarDatos(muestra,id_val):
+     sql = """ UPDATE variables
+                    SET var_ter = %s
+                    WHERE variable_id = %s"""
+
+     try:
+         print('Conectando a PostgreSQL database para la carga de la tabla')
+         conn = psycopg2.connect("host='localhost' dbname='practica1' user= 'postgres' password='castelli'")
+         cur = conn.cursor()
+         # execute the INSERT statement
+         cur.execute(sql, (muestra,id_val))
+         # Commit the changes to the database
+         conn.commit()
+         #Close communication with the PostgreSQL database
+         cur.close()
+     except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+     finally:
+            if conn is not None:
+                conn.close()

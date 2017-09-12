@@ -1,38 +1,64 @@
-from random import uniform
 from random import randint
+import baseDeDatos
 import pprint
+import time
 import sys
+import app
+from flask import Flask
+from flask import render_template
+from flask import request
+
+termo=0
+def variableTer():
+    return termo
 def termometro():
-    print("Se tomo valor del Termometro")
-    return randint(5,35)
+        i = 1
+        print("Se tomo valor del Termometro")
+        global termo
+        termo=randint(5,35)
+        #baseDeDatos.actualizarDatos(termo,1)
+        #time.sleep(10)
 #Mide la presion atmosferica en mm
 def barometro():
-    print("Se tomo valor del Barometro")
-    return randint(8,68)
-#Mide la velocidad del viento
-def anenomtro():
-    print("Se tomo valor del Anenometro")
-    return uniform(2,6)
+    i = 1
+    while i != 100 :
+        print("Se tomo valor del Barometro")
+        baro=randint(8,68)
+        baseDeDatos.actualizarDatos(baro,1)
+
 #Indica la direccion del viento
 def veleta():
-    print("Se tomo valor de la Veleta")
-    return uniform(0,360)
+    i = 1
+    while i != 100 :
+        print("Se tomo valor de la Veleta")
+        vele=randint(0,360)
+        baseDeDatos.actualizarDatos(vele,1)
+
 #Mide la cantidad de agua caida
 def pluvimetro():
-    print("Se tomo valor del Pluvimetro")
-    #En mililitros
-    return uniform(100,1000)
-#Mide las horas de luz solar
-def heliografo():
-    #print ("Se tomo valor del Heliografo")
-    return randint(7,11)
+    i = 1
+    while i != 100 :
+        print("Se tomo valor del Pluvimetro")
+        #En mililitros
+        pluvi=randint(100,1000)
+        baseDeDatos.actualizarDatos(pluvi,1)
+
+
+periodo = 10
+def cambioPeriodo(valor):
+    periodo = valor
+
+
 #Funcion que toma todos los valores de forma secuencial cuando arranca el procesos
 def TomarValores():
-    termometro()
-    barometro()
-    anenomtro()
-    veleta()
-    pluvimetro()
-    heliografo()
-    #Aca mandamos a la base de datos
-    
+    i = 1
+    while i != 100 :
+        print("se cambio el valor de periodo a =")
+        print(periodo)
+        termometro()
+        barometro()
+        anenomtro()
+        veleta()
+        pluvimetro()
+        heliografo()
+        #Aca mandamos a la base de datos

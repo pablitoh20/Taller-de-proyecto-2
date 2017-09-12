@@ -56,12 +56,10 @@
                     </thead>
                     <tbody>
                       <tr>
+                        <td>{{ termo }}</td>
                         <td><?php echo $num*rand(0,5) . "\n";?></td>
                         <td><?php echo $num*rand(0,5) . "\n";?></td>
-                        <td><?php echo $num*rand(0,5) . "\n";?></td>
-
                       </tr>
-
                     </tbody>
                   </table>
               </div>
@@ -146,4 +144,6 @@
       </div>
   </body>
 
+  <!-- FUNCION QUE REFRESCA LA PAGINA CADA 10 SEGUNDOS -->
+  <script>setTimeout('document.location.reload()',10000);</script>
 </html>

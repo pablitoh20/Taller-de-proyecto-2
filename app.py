@@ -12,7 +12,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-global periodo
+
 
 app = Flask(__name__)
 
@@ -22,7 +22,10 @@ app = Flask(__name__)
 
 #definimos cual es el inicio de la pagina
 def index():
-    return render_template('estacionInformacion.html')
+    estMete = threading.Thread(target=E_mete.termometro)
+    estMete.start()
+    estMete.join()
+    return render_template('estacionInformacion.html',termo=E_mete.variableTer())
 
 # Define la ruta y metodo con el que se debe llegar a este endpoint
 @app.route('/estacionInformacion', methods = ['POST'])
@@ -32,26 +35,27 @@ def action_form():
     if request.method == 'POST':
         data = request.form
         if data["periodo"] == "1":
-            periodo=1
+            #E_mete.cambioPeriodo(1)
+            termo=1;
         elif data["periodo"] == "2":
-            periodo=2
+            E_mete.cambioPeriodo(2)
         elif data["periodo"] == "5":
-            periodo=5
+            E_mete.cambioPeriodo(5)
         elif data["periodo"] == "10":
-            periodo=10
+            E_mete.cambioPeriodo(10)
         elif data["periodo"] == "30":
-            periodo=30
+            E_mete.cambioPeriodo(30)
         elif data["periodo"] == "60":
-            periodo=60
+            E_mete.cambioPeriodo(60)
         else:
-            periodo=120 #es para completar, pero puede ir 0
-        #Hay que modificar el nombre del HTML en caso de cambiarlo
-    return render_template('estacionInformacion.html')
+            E_mete.cambioPeriodo(120) #es para completar, pero puede ir 0
+        return render_template('estacionInformacion.html',termo=termo)
 
+def actualizarPagina(variable):
+        return render_template('estacionInformacion.html',variable=variable)
 #Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
 def connect():
     conn = None
-    vendor_id = None
     try:
         print('Conectando a PostgreSQL database...')
         conn = psycopg2.connect("host='localhost' dbname='practica1' user= 'postgres' password='castelli'")
@@ -70,15 +74,16 @@ def connect():
 
 
 if __name__ == '__main__':
+
     #Creamos la tabla de la base de datos
     #baseDeDatos.creacionTabla()
     #baseDeDatos.insertarDatos([(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,)])
     #Cargamos dicha tabla con valores en 0
-    #estMete = threading.Thread(target=E_mete.TomarValores)
+    #estMete = threading.Thread(target=E_mete.termometro)
     #info = threading.Thread(target)
     #connect()
     #estMete.start()
     #estMete.join()
     #print("Se termino el hilo")
-    periodo=10
     app.run(host='localhost', port=80)
+    #E_mete.termometro()
