@@ -31,7 +31,10 @@ def index():
     hilo_pluvimetro =threading.Thread(target=E_mete.pluvimetro)
     hilo_pluvimetro.start()
     #actualizamos los id de las cosas para la base d datos
-    return render_template('estacionInformacion.html',termo=E_mete.variableTer(),termo_promedio=4,termo_ultimaMuestra=4)
+    return render_template('estacionInformacion.html',termo=E_mete.variableTer(),termo_promedio=4,termo_ultimaMuestra=E_mete.get_idTerm(),
+                            humedad=E_mete.variablePluvi(), humedad_promedio=4, humedad_UltimaMuesta=E_mete.get_idPluvi(),
+                            presion=E_mete.variableBar(), presion_promedio=4, presion_UltimaMuestra=E_mete.get_idBaro(),
+                            viento=E_mete.variableVele(), viento_promedio=4, viento_UltimaMuestra=E_mete.get_idVele())
 
 # Define la ruta y metodo con el que se debe llegar a este endpoint
 @app.route('/estacionInformacion', methods = ['POST'])
@@ -91,5 +94,5 @@ if __name__ == '__main__':
     #estMete.start()
     #estMete.join()
     #print("Se termino el hilo")
-    app.run(host='localhost', port=80)
+    app.run(host='localhost', port=81)
     #E_mete.termometro()

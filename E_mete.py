@@ -8,17 +8,49 @@ from flask import Flask
 from flask import render_template
 from flask import request
 #hay que borrarla pero anda bien globalmente
+termo=0
+baro=0
+vele=0
+pluvi=0
+
 id_term=1
 id_barometro=1
 id_veleta=1
 id_pluvi=1
 
-
+# variables para mostrar en HTML del termometro
 def variableTer():
     return termo
 
-def termometro():
+def get_idTerm():
+    global id_term
+    return id_term
 
+#Variables para mostrar en HTML del barometro
+def variableBar():
+    return baro
+
+def get_idBaro():
+    global id_barometro
+    return id_barometro
+
+# variables para mostrar en HTML del pluviometro
+def variablePluvi():
+    return pluvi
+
+def get_idPluvi():
+    global id_pluvi
+    return id_pluvi
+# variables para mostrar en HTML del veleta
+def variableVele():
+    return vele
+
+def get_idVele():
+    global id_veleta
+    return id_veleta
+
+#Los siguientes 4 Def son para definir el comportamiento de musetreo de la estacion, a partir de 4 sensores
+def termometro():
         print("Se tomo valor del Termometro")
         global termo
         global id_term
@@ -28,8 +60,6 @@ def termometro():
             id_term = 1
         else:
             id_term = id_term + 1
-
-
         #time.sleep(10)
 
 #Mide la presion atmosferica en mm
@@ -49,6 +79,7 @@ def barometro():
 #Indica la direccion del viento
 def veleta():
         print("Se tomo valor de la Veleta")
+        global vele
         global id_veleta
         vele=randint(0,360)
         baseDeDatos.actualizarDatosVeleta(vele,id_veleta)
@@ -61,6 +92,7 @@ def veleta():
 def pluvimetro():
         print("Se tomo valor del Pluvimetro")
         global id_pluvi
+        global pluvi
         #En mililitros
         pluvi=randint(100,1000)
         baseDeDatos.actualizarDatosPluvi(pluvi,id_pluvi)
