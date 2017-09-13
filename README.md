@@ -44,7 +44,7 @@ Completar de la siguiente manera:
 		UserName : postgres
 		passward : (la que gusten, pero la que ponga, fijense de entrar al .py y ponerle esta misma).
 		
-Presionar aceptar y listo, ya tienen el servidor creado, ahora entren hasta q les aparezca "Databases" y hagan click derecho y crear una base d datos nueva con el nombre practica1.
+Presionar aceptar y listo, ya tienen el servidor creado, ahora entren hasta q les aparezca "Databases" y hagan click derecho y crear una base dE datos nueva con el nombre practica1. Cuando terminen esto, dentro del repositorio hay un backup con la base de datos ya iniciada. Para usarla, clik derecho en la base de datos con el nombre practica1 ->restore... y se busca la direccion en donde se encuentra dicho backup. Si da algun error en la carga no pasa nada, es un problema de registro o algo del archivo.
 
  Para poder seguir utilizando todo, sigan este tutorial:
 
