@@ -18,9 +18,24 @@ id_barometro=1
 id_veleta=1
 id_pluvi=1
 
+periodo = 8000
+def cambioPeriodo(val):
+    global periodo
+    periodo = val
+
+def actualizarPeriodo():
+    global periodo
+    return periodo
+
 # variables para mostrar en HTML del termometro
 def variableTer():
     return termo
+
+def promedioTer():
+    global pro_ter
+    pro_ter = 0
+    pro_ter = baseDeDatos.consultaPromedioTermo()
+    return pro_ter
 
 def get_idTerm():
     global id_term
@@ -30,6 +45,12 @@ def get_idTerm():
 def variableBar():
     return baro
 
+def promedioBar():
+    global pro_bar
+    pro_bar = 0
+    pro_bar = baseDeDatos.consultaPromedioBaro()
+    return pro_bar
+
 def get_idBaro():
     global id_barometro
     return id_barometro
@@ -38,12 +59,25 @@ def get_idBaro():
 def variablePluvi():
     return pluvi
 
+def promedioPluvi():
+    global pro_pluvi
+    pro_pluvi = 0
+    pro_pluvi = baseDeDatos.consultaPromedioPluvi()
+    return pro_pluvi
+
 def get_idPluvi():
     global id_pluvi
     return id_pluvi
+
 # variables para mostrar en HTML del veleta
 def variableVele():
     return vele
+
+def promedioVele():
+    global pro_vele
+    pro_vele = 0
+    pro_vele = baseDeDatos.consultaPromedioVeleta()
+    return pro_vele
 
 def get_idVele():
     global id_veleta

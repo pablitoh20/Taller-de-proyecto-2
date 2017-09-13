@@ -31,10 +31,15 @@ def index():
     hilo_pluvimetro =threading.Thread(target=E_mete.pluvimetro)
     hilo_pluvimetro.start()
     #actualizamos los id de las cosas para la base d datos
-    return render_template('estacionInformacion.html',termo=E_mete.variableTer(),termo_promedio=4,termo_ultimaMuestra=E_mete.get_idTerm(),
-                            humedad=E_mete.variablePluvi(), humedad_promedio=4, humedad_UltimaMuesta=E_mete.get_idPluvi(),
-                            presion=E_mete.variableBar(), presion_promedio=4, presion_UltimaMuestra=E_mete.get_idBaro(),
-                            viento=E_mete.variableVele(), viento_promedio=4, viento_UltimaMuestra=E_mete.get_idVele())
+    return render_template('estacionInformacion.html',termo=E_mete.variableTer(),termo_promedio=E_mete.promedioTer(),termo_ultimaMuestra=E_mete.get_idTerm(),
+                            humedad=E_mete.variablePluvi(), humedad_promedio=E_mete.promedioPluvi(), humedad_UltimaMuesta=E_mete.get_idPluvi(),
+                            presion=E_mete.variableBar(), presion_promedio=E_mete.promedioBar(), presion_UltimaMuestra=E_mete.get_idBaro(),
+                            viento=E_mete.variableVele(), viento_promedio=E_mete.promedioVele(), viento_UltimaMuestra=E_mete.get_idVele(), periodo=E_mete.actualizarPeriodo())
+
+
+
+
+
 
 # Define la ruta y metodo con el que se debe llegar a este endpoint
 @app.route('/estacionInformacion', methods = ['POST'])
@@ -44,43 +49,32 @@ def action_form():
     if request.method == 'POST':
         data = request.form
         if data["periodo"] == "1":
-            #E_mete.cambioPeriodo(1)
-            termo=1;
+            E_mete.cambioPeriodo(1000)
         elif data["periodo"] == "2":
-            E_mete.cambioPeriodo(2)
+            E_mete.cambioPeriodo(2000)
         elif data["periodo"] == "5":
-            E_mete.cambioPeriodo(5)
+            E_mete.cambioPeriodo(5000)
         elif data["periodo"] == "10":
-            E_mete.cambioPeriodo(10)
+            E_mete.cambioPeriodo(10000)
         elif data["periodo"] == "30":
-            E_mete.cambioPeriodo(30)
+            E_mete.cambioPeriodo(30000)
         elif data["periodo"] == "60":
-            E_mete.cambioPeriodo(60)
+            E_mete.cambioPeriodo(60000)
         else:
             E_mete.cambioPeriodo(120) #es para completar, pero puede ir 0
-        return render_template('estacionInformacion.html',termo=termo)
-
-def actualizarPagina(variable):
-        return render_template('estacionInformacion.html',variable=variable)
-#Para realizar la conexion con la base de datos,configurar como indica el readm.md de git
-def connect():
-    conn = None
-    try:
-        print('Conectando a PostgreSQL database...')
-        conn = psycopg2.connect("host='localhost' dbname='practica1' user= 'postgres' password='castelli'")
-        # create a cursor
-        cur = conn.cursor()
-        # get the generated id back
-        cur.close()
-        # commit the changes
-        conn.commit()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database conexion cerrada.')
-
+        #return render_template('estacionInformacion.html')
+    hilo_temperatura = threading.Thread(target=E_mete.termometro)
+    hilo_temperatura.start()
+    hilo_barometro = threading.Thread(target=E_mete.barometro)
+    hilo_barometro.start()
+    hilo_veleta = threading.Thread(target=E_mete.veleta)
+    hilo_veleta.start()
+    hilo_pluvimetro =threading.Thread(target=E_mete.pluvimetro)
+    hilo_pluvimetro.start()
+    return render_template('estacionInformacion.html',termo=E_mete.variableTer(),termo_promedio=E_mete.promedioTer(),termo_ultimaMuestra=E_mete.get_idTerm(),
+                                humedad=E_mete.variablePluvi(), humedad_promedio=E_mete.promedioPluvi(), humedad_UltimaMuesta=E_mete.get_idPluvi(),
+                                presion=E_mete.variableBar(), presion_promedio=E_mete.promedioBar(), presion_UltimaMuestra=E_mete.get_idBaro(),
+                                viento=E_mete.variableVele(), viento_promedio=E_mete.promedioVele(), viento_UltimaMuestra=E_mete.get_idVele(), periodo=E_mete.actualizarPeriodo())
 
 if __name__ == '__main__':
 
@@ -94,5 +88,5 @@ if __name__ == '__main__':
     #estMete.start()
     #estMete.join()
     #print("Se termino el hilo")
-    app.run(host='localhost', port=81)
+    app.run(host='localhost', port=80)
     #E_mete.termometro()

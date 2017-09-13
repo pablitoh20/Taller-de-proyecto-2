@@ -4,10 +4,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="utf-8">
     <title>Tp2</title>
+    <style>
+      .cuerpo{
+        background-image: url("dragon-ball.jpg");
+        background-repeat: no-repeat;
+
+      }
+    </style>
   </head>
   <body>
     <nav>
-      <div class="jumbotron text-center hola">
+      <div class="jumbotron text-center  container">
         <h1>Taller de Proyecto II - 2017</h1>
         <p>Práctica 1</p>
       </div>
@@ -145,8 +152,8 @@
   </body>
 
   <!-- FUNCION QUE REFRESCA LA PAGINA CADA 10 SEGUNDOS -->
-
   <script>
-
-  setTimeout('document.location.reload()',10000);</script>
+    tiempo_actualizar = {{periodo}}
+    setTimeout('document.location.reload()',tiempo_actualizar);
+  </script>
 </html>
