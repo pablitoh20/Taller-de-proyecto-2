@@ -18,7 +18,7 @@ id_barometro=1
 id_veleta=1
 id_pluvi=1
 
-periodo = 8000
+periodo = 10000
 def cambioPeriodo(val):
     global periodo
     periodo = val

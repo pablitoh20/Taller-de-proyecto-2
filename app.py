@@ -88,5 +88,5 @@ if __name__ == '__main__':
     #estMete.start()
     #estMete.join()
     #print("Se termino el hilo")
-    app.run(host='localhost', port=81)
+    app.run(host='localhost', port=80)
     #E_mete.termometro()
