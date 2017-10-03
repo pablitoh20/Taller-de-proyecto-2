@@ -77,7 +77,6 @@ def action_form():
                                 viento=E_mete.variableVele(), viento_promedio=E_mete.promedioVele(), viento_UltimaMuestra=E_mete.get_idVele(), periodo=E_mete.actualizarPeriodo())
 
 if __name__ == '__main__':
-
     #Creamos la tabla de la base de datos
     #baseDeDatos.creacionTabla()
     #baseDeDatos.insertarDatos([(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,),(0,)])
